@@ -1,0 +1,330 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:piechat="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#ffffff"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_weight="1"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#ffffff">
+
+                <RelativeLayout
+                    android:id="@+id/view_status"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginTop="10dp"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:id="@+id/img_machinestatus"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="5dp"
+                        android:gravity="center"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:id="@+id/img_machine_status"
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:layout_marginRight="2dp"
+                            android:background="@drawable/normal" />
+
+                        <TextView
+                            android:id="@+id/txt_machine_status"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="正常" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/img_networkstatus"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="20dp"
+                        android:layout_toRightOf="@+id/img_machinestatus"
+                        android:gravity="center"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:id="@+id/img_wifi_status"
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:layout_marginRight="2dp"
+                            android:background="@drawable/online" />
+
+                        <TextView
+                            android:id="@+id/txt_wifi_status"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="在线" />
+                    </LinearLayout>
+
+                    <ImageView
+                        android:id="@+id/img_temperature"
+                        android:layout_width="30dp"
+                        android:layout_height="25dp"
+                        android:layout_toRightOf="@id/img_networkstatus"
+                        android:background="@drawable/tem" />
+
+                    <TextView
+                        android:id="@+id/temperature_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="25dp"
+                        android:layout_toRightOf="@id/img_temperature"
+                        android:gravity="center|left"
+                        android:text="@string/mac_temperature"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
+
+                    <ImageView
+                        android:id="@+id/img_refresh"
+                        android:layout_width="35dp"
+                        android:layout_height="35dp"
+                        android:layout_alignParentRight="true"
+                        android:layout_gravity="right"
+                        android:background="@drawable/shuaxin" />
+                </RelativeLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/view_status"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="140dp"
+                        android:layout_height="160dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:orientation="vertical"
+                        android:paddingLeft="20dp">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginRight="10dp"
+                            android:layout_marginTop="5dp"
+                            android:background="#F5F5F5"
+                            android:gravity="center"
+                            android:orientation="vertical"
+                            android:padding="10dp">
+
+                            <TextView
+                                android:id="@+id/txt_progress"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:gravity="left"
+                                android:paddingBottom="5dp"
+                                android:text="进度 : %s"
+                                android:textColor="#323232"
+                                android:textSize="12sp" />
+
+                            <TextView
+                                android:id="@+id/txt_time"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:gravity="left"
+                                android:paddingBottom="5dp"
+                                android:text="用时 : %s"
+                                android:textColor="#323232"
+                                android:textSize="12sp" />
+
+                            <TextView
+                                android:id="@+id/txt_speed"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:gravity="left"
+                                android:paddingBottom="5dp"
+                                android:text="速度 : %s"
+                                android:textColor="#323232"
+                                android:textSize="12sp" />
+
+
+                            <TextView
+                                android:id="@+id/txt_position"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:gravity="left"
+                                android:paddingBottom="5dp"
+                                android:text="位置 : %s"
+                                android:textColor="#323232"
+                                android:textSize="12sp" />
+
+                            <TextView
+                                android:id="@+id/txt_area"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:gravity="left"
+                                android:paddingBottom="5dp"
+                                android:text="范围 : %s"
+                                android:textColor="#323232"
+                                android:textSize="12sp" />
+
+                            <TextView
+                                android:id="@+id/txt_times"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:gravity="left"
+                                android:text="次数 : %s"
+                                android:textColor="#323232"
+                                android:textSize="12sp" />
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <com.rnkj.rain.view.PieChart
+                        android:id="@+id/pieChartView"
+                        android:layout_width="160dp"
+                        android:layout_height="160dp"
+                        android:background="#FFFFFF"
+                        piechat:enabled_run_background="@color/status_press"
+                        piechat:unabled_run_background="@color/background_grad" />
+                </LinearLayout>
+            </RelativeLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_weight="2"
+            android:background="#ffffff"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+                <RelativeLayout
+                    android:id="@+id/id_plan_header"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:id="@+id/id_view_tab"
+                        android:layout_alignParentLeft="true"
+                        android:layout_width="220dp"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:orientation="vertical">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:id="@+id/id_tab_area"
+                                android:layout_width="60dp"
+                                android:layout_height="30dp"
+                                android:layout_weight="1"
+                                android:textStyle="bold"
+                                android:textSize="20sp"
+                                android:background="@color/tab_pressed"
+                                android:gravity="center"
+                                android:layout_marginRight="2dp"
+                                android:text="区域"
+                                android:textColor="@color/white" />
+
+                            <TextView
+                                android:id="@+id/id_tab_speed"
+                                android:layout_width="60dp"
+                                android:layout_height="30dp"
+                                android:layout_weight="1"
+                                android:textStyle="bold"
+                                android:textSize="20sp"
+                                android:background="@color/plan_txt_normal"
+                                android:gravity="center"
+                                android:layout_marginRight="2dp"
+                                android:layout_marginLeft="2dp"
+                                android:text="速度"
+                                android:textColor="@color/tab_pressed" />
+
+                            <TextView
+                                android:id="@+id/id_tab_mode"
+                                android:layout_width="60dp"
+                                android:layout_height="30dp"
+                                android:layout_weight="1"
+                                android:textStyle="bold"
+                                android:textSize="20sp"
+                                android:background="@color/plan_txt_normal"
+                                android:gravity="center"
+                                android:layout_marginLeft="2dp"
+                                android:text="模式"
+                                android:textColor="@color/tab_pressed" />
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <ImageView
+                        android:id="@+id/id_view_add_speed"
+                        android:layout_width="60dp"
+                        android:layout_height="30dp"
+                        android:layout_marginLeft="50dp"
+                        android:layout_centerInParent="true"
+                        android:layout_toRightOf="@+id/id_view_tab"
+                        android:src="@drawable/plan_add" />
+                </RelativeLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:background="@color/plan_txt_normal"
+                    android:layout_height="2dp"/>
+                <android.support.v4.view.ViewPager
+                    android:id="@+id/viewPager"
+                    android:layout_width="match_parent"
+                    android:layout_height="150dp"
+                    />
+            </LinearLayout>
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginTop="15dp"
+                android:gravity="center">
+
+                <Button
+                    android:id="@+id/btn_running"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginRight="90dp"
+                    android:background="@color/status_stop"
+                    android:text="运行"
+                    android:textColor="@color/white"
+                    android:textSize="16sp" />
+
+                <Button
+                    android:id="@+id/btn_pasue"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="@dimen/kaishi_margin"
+                    android:background="@color/status_press"
+                    android:text="暂停"
+                    android:textColor="@color/white"
+                    android:textSize="16sp" />
+            </RelativeLayout>
+        </LinearLayout>
+    </LinearLayout>
+</ScrollView>

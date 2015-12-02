@@ -1,0 +1,275 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:piechat="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include
+        android:id="@+id/id_header"
+        layout="@layout/header"></include>
+
+    <com.rnkj.rain.view.PieChart
+        android:id="@+id/pieChartView"
+        android:layout_width="250dp"
+        android:layout_height="250dp"
+        android:layout_gravity="center"
+        android:background="#FFFFFF"
+        piechat:enabled_run_background="@color/status_press"
+        piechat:unabled_run_background="@color/background_grad" />
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        android:background="@color/lightgray"
+        android:orientation="vertical"
+        android:paddingBottom="20dp"
+        android:paddingTop="20dp">
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="5dp"
+            android:layout_weight="1">
+
+            <TextView
+                android:id="@+id/id_plan_startdate"
+                android:layout_width="80dp"
+                android:layout_height="match_parent"
+                android:gravity="center|left"
+                android:text="开始时间 :"
+                android:textColor="#3F3F3F"
+                android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/id_plan_detail_startdate"
+                android:layout_width="100dp"
+                android:layout_height="match_parent"
+                android:layout_centerInParent="true"
+                android:layout_marginLeft="10dp"
+                android:layout_toRightOf="@+id/id_plan_startdate"
+                android:textColor="#3F3F3F"
+                android:gravity="left|center"
+                android:text="12月33日 99:99" />
+
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="5dp"
+            android:layout_weight="1">
+
+            <TextView
+                android:id="@+id/id_plan_area"
+                android:layout_width="80dp"
+                android:layout_height="match_parent"
+                android:gravity="center|left"
+                android:text="运行范围 :"
+                android:textColor="#3F3F3F"
+                android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/id_plan_detail_area"
+                android:layout_width="100dp"
+                android:layout_height="match_parent"
+                android:layout_centerInParent="true"
+                android:layout_marginLeft="10dp"
+                android:layout_toRightOf="@+id/id_plan_area"
+                android:textColor="#3F3F3F"
+                android:gravity="left|center"
+                android:text="999°~999°" />
+
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="5dp"
+            android:layout_weight="1">
+
+            <TextView
+                android:id="@+id/id_plan_times"
+                android:layout_width="80dp"
+                android:layout_height="match_parent"
+                android:gravity="center|left"
+                android:text="运行次数 :"
+                android:textColor="#3F3F3F"
+                android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/id_plan_detail_times"
+                android:layout_width="100dp"
+                android:layout_height="match_parent"
+                android:layout_centerInParent="true"
+                android:layout_marginLeft="10dp"
+                android:layout_toRightOf="@+id/id_plan_times"
+                android:textColor="#3F3F3F"
+                android:gravity="left|center"
+                android:text="3次" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="5dp"
+            android:layout_weight="1">
+
+            <TextView
+                android:id="@+id/id_plan_submittime"
+                android:layout_width="80dp"
+                android:layout_height="match_parent"
+                android:gravity="center|left"
+                android:text="提交时间 :"
+                android:textColor="#3F3F3F"
+                android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/id_plan_detail_submittime"
+                android:layout_width="100dp"
+                android:layout_height="match_parent"
+                android:layout_centerInParent="true"
+                android:layout_marginLeft="10dp"
+                android:layout_toRightOf="@+id/id_plan_submittime"
+                android:textColor="#3F3F3F"
+                android:gravity="left|center"
+                android:text="12月33日 99:99" />
+
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="5dp"
+            android:visibility="gone"
+            android:layout_weight="1">
+
+            <TextView
+                android:id="@+id/id_plan_expecttime"
+                android:layout_width="80dp"
+                android:layout_height="match_parent"
+                android:gravity="center|left"
+                android:text="预计用时 :"
+                android:textColor="#3F3F3F"
+                android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/id_plan_detail_expecttime"
+                android:layout_width="100dp"
+                android:layout_height="match_parent"
+                android:layout_centerInParent="true"
+                android:layout_marginLeft="10dp"
+                android:layout_toRightOf="@+id/id_plan_expecttime"
+                android:textColor="#3F3F3F"
+                android:gravity="left|center"
+                android:text="99天99时99分" />
+
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="5dp"
+            android:layout_weight="1">
+
+            <TextView
+                android:id="@+id/id_plan_timecost"
+                android:layout_width="80dp"
+                android:layout_height="match_parent"
+                android:gravity="center|left"
+                android:text="已用时     :"
+                android:textColor="#3F3F3F"
+                android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/id_plan_detail_timecost"
+                android:layout_width="100dp"
+                android:layout_height="match_parent"
+                android:layout_centerInParent="true"
+                android:layout_marginLeft="10dp"
+                android:layout_toRightOf="@+id/id_plan_timecost"
+                android:textColor="#3F3F3F"
+                android:gravity="left|center"
+                android:text="99天99时99分" />
+
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="5dp"
+            android:layout_weight="1">
+
+            <TextView
+                android:id="@+id/id_plan_progress"
+                android:layout_width="80dp"
+                android:layout_height="match_parent"
+                android:gravity="center|left"
+                android:text="当前进度 :"
+                android:textColor="#3F3F3F"
+                android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/id_plan_detail_progress"
+                android:layout_width="100dp"
+                android:layout_height="match_parent"
+                android:layout_centerInParent="true"
+                android:layout_marginLeft="10dp"
+                android:layout_toRightOf="@+id/id_plan_progress"
+                android:textColor="#3F3F3F"
+                android:gravity="left|center"
+                android:text="99%" />
+        </RelativeLayout>
+
+    </LinearLayout>
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginTop="15dp"
+        android:gravity="center">
+
+        <Button
+            android:id="@+id/btn_running"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentTop="true"
+            android:layout_marginRight="90dp"
+            android:background="@color/status_press"
+            android:text="运行"
+            android:textColor="@color/white"
+            android:textSize="16sp" />
+
+        <Button
+            android:id="@+id/btn_pasue"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="@dimen/kaishi_margin"
+            android:background="@color/status_stop"
+            android:text="取消"
+            android:textColor="@color/white"
+            android:textSize="16sp" />
+    </RelativeLayout>
+
+
+
+
+
+</LinearLayout>

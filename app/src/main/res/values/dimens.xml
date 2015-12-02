@@ -1,0 +1,55 @@
+
+<resources>
+
+    <!-- Default screen margins, per the Android Design guidelines. -->
+    <!-- Default screen is 720p -->
+    
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+	
+	<!-- center -->
+	<dimen name="wrap">12dp</dimen>
+	<dimen name="wrap1">12dp</dimen>
+	
+	<!-- main activty -->
+	<dimen name="mainheight">40dp</dimen>
+	<dimen name="radiobuttonheight">40dp</dimen>
+	
+	<!-- main_fragment -->
+	<dimen name="main_realative">240dp</dimen>
+	<dimen name="main_re_Lin1_w">100dp</dimen>
+	<dimen name="main_re_Lin1_h">120dp</dimen>
+	<dimen name="main_re_Lin1_textw">40dp</dimen>
+	<dimen name="main_real_Lin2">80dp</dimen>
+	<dimen name="main_view_w">180dp</dimen>
+	<dimen name="main_view_h">180dp</dimen>
+	
+	<dimen name="machinestaus_w">60dp</dimen>
+	<dimen name="machinestaus_h">25dp</dimen>
+	<dimen name="main_tv_W">40dp</dimen>
+	<dimen name="main_tv_h">30dp</dimen>
+	
+	<dimen name="main_line_1">260dp</dimen>
+	<dimen name="vcl_h">20dp</dimen>
+	
+	<dimen name="ore_h">100dp</dimen>
+	<dimen name="margin">40dp</dimen>
+	
+	<dimen name="orentation_high">30dp</dimen>
+	<dimen name="orentation_left">30dp</dimen>
+	<dimen name="orentation_but_w">60dp</dimen>
+	<dimen name="orentation_but_margin">30dp</dimen>
+	
+	<dimen name="switch_width">150dp</dimen>
+	<dimen name="speed_but_w">45dp</dimen>
+	<dimen name="speedview_w">50dp</dimen>
+	
+	<dimen name="fujianmargin">20dp</dimen>
+	<dimen name="kaishi_width">60dp</dimen>
+	<dimen name="kaishi_margin">100dp</dimen>
+	<dimen name="kaishi_height">35dp</dimen>
+	<dimen name="kaishi_margintop">10dp</dimen>
+	
+	<dimen name="penqiang_height">30dp</dimen>
+	<dimen name="penqiang_margintop">10dp</dimen>
+</resources>

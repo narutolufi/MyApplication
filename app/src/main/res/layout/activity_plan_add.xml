@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:piechat="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <include
+        android:id="@+id/id_header"
+        layout="@layout/header"></include>
+
+    <com.rnkj.rain.view.PieChart
+        android:id="@+id/pieChartView"
+        android:layout_width="250dp"
+        android:layout_height="250dp"
+        android:layout_gravity="center"
+        android:background="#FFFFFF"
+        piechat:enabled_run_background="@color/status_press"
+        piechat:unabled_run_background="@color/background_grad" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        android:background="@color/lightgray"
+        android:orientation="vertical"
+        android:paddingBottom="20dp"
+        android:paddingTop="20dp">
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="5dp"
+            android:layout_weight="1">
+
+            <TextView
+                android:id="@+id/id_plan_add_date_left"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:background="#323232"
+                android:gravity="center"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:text="日期"
+                android:textColor="@color/white"
+                android:textSize="15sp" />
+
+            <EditText
+                android:id="@+id/id_plan_add_date"
+                android:layout_width="150dp"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:inputType="number"
+                android:layout_marginLeft="10dp"
+                android:layout_toRightOf="@+id/id_plan_add_date_left"
+                android:background="@drawable/content_bg"
+                android:text=""
+                android:cursorVisible="false"
+                android:editable="false"
+                android:focusable="false"
+                android:textStyle="normal"
+                android:hint="请选择日期"
+                android:textSize="14sp" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            android:layout_weight="1">
+
+            <TextView
+                android:id="@+id/id_plan_add_time_left"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:background="#323232"
+                android:gravity="center"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:text="时间"
+                android:textColor="@color/white"
+                android:textSize="15sp" />
+
+            <EditText
+                android:id="@+id/id_plan_add_time"
+                android:layout_width="150dp"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:inputType="number"
+                android:layout_marginLeft="10dp"
+                android:layout_toRightOf="@+id/id_plan_add_time_left"
+                android:background="@drawable/content_bg"
+                android:hint="请选择时间"
+                android:text=""
+                android:editable="false"
+                android:focusable="false"
+                android:cursorVisible="false"
+                android:textStyle="normal"
+                android:textSize="16sp" />
+
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            android:layout_weight="1">
+
+            <TextView
+                android:id="@+id/id_plan_add_area_left"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:background="#323232"
+                android:gravity="center"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:text="范围"
+                android:textColor="@color/white"
+                android:textSize="15sp" />
+
+            <RelativeLayout
+                android:layout_width="150dp"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="5dp"
+                android:layout_marginLeft="10dp"
+                android:layout_toRightOf="@id/id_plan_add_area_left"
+                android:orientation="horizontal">
+                <EditText
+                    android:id="@+id/id_plan_area_start"
+                    android:layout_width="65dp"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:inputType="number"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerInParent="true"
+                    android:background="@drawable/content_bg"
+                    android:hint="请选择起点"
+                    android:cursorVisible="false"
+                    android:editable="false"
+                    android:focusable="false"
+                    android:textStyle="normal"
+                    android:textSize="12sp" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="5dp"
+                    android:layout_toLeftOf="@+id/id_plan_area_end"
+                    android:layout_toRightOf="@+id/id_plan_area_start"
+                    android:gravity="center"
+                    android:text="---"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/id_plan_area_end"
+                    android:layout_width="65dp"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:inputType="number"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerInParent="true"
+                    android:background="@drawable/content_bg"
+                    android:text=""
+                    android:cursorVisible="false"
+                    android:hint="请选择终点"
+                    android:editable="false"
+                    android:focusable="false"
+                    android:textStyle="normal"
+                    android:textSize="12sp" />
+
+            </RelativeLayout>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="10dp"
+            android:layout_weight="1">
+
+            <TextView
+                android:id="@+id/id_plan_add_times_left"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:background="#323232"
+                android:gravity="center"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:text="次数"
+                android:textColor="@color/white"
+                android:textSize="15sp" />
+
+            <EditText
+                android:id="@+id/id_plan_add_times"
+                android:layout_width="150dp"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:inputType="number"
+                android:layout_marginLeft="10dp"
+                android:layout_toRightOf="@+id/id_plan_add_times_left"
+                android:background="@drawable/content_bg"
+                android:text=""
+                android:hint="请选择次数"
+                android:cursorVisible="false"
+                android:editable="false"
+                android:focusable="false"
+                android:textStyle="normal"
+                android:textSize="16sp" />
+        </RelativeLayout>
+
+    </LinearLayout>
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginTop="15dp"
+        android:gravity="center">
+
+        <Button
+            android:id="@+id/id_btn_add_plan"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentTop="true"
+            android:layout_marginRight="90dp"
+            android:background="@color/status_press"
+            android:text="@string/OK"
+            android:textColor="@color/white"
+            android:textSize="16sp" />
+
+        <Button
+            android:id="@+id/id_btn_cancel_plan"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="@dimen/kaishi_margin"
+            android:background="@color/status_stop"
+            android:text="@string/Cancel"
+            android:textColor="@color/white"
+            android:textSize="16sp" />
+    </RelativeLayout>
+
+</LinearLayout>
