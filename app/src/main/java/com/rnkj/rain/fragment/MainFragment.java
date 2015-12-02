@@ -17,6 +17,7 @@ import com.rnkj.rain.bean.Machine;
 import com.rnkj.rain.bean.MachineDetail;
 import com.rnkj.rain.request.Dao;
 import com.rnkj.rain.request.results.ResponseAction;
+import com.rnkj.rain.ui.IndexActivity;
 import com.rnkj.rain.utils.T;
 import com.rnkj.rain.view.PieChart;
 import com.rnkj.rain.view.SwitchView;
@@ -130,6 +131,7 @@ public class MainFragment extends BaseFragment {
             public void onSuccess(IEntity entity) {
                 super.onSuccess(entity);
                 machineDetail = (MachineDetail)entity;
+                IndexActivity.mMachineDetail = machineDetail;
                 getActivity().runOnUiThread(new Runnable() {
                     @Override
                     public void run() {

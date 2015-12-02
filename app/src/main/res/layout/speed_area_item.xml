@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="60dp"
+    android:background="#FFFFFF"
+    android:orientation="horizontal">
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        >
+
+        <TextView
+            android:id="@+id/id_plan_add_area_left"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:text="范围"
+            android:textColor="#323232"
+            android:textSize="15sp" />
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="30dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_toRightOf="@id/id_plan_add_area_left"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/id_speed_area_start"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_alignParentLeft="true"
+                android:layout_centerInParent="true"
+                android:background="@drawable/content_bg"
+                android:cursorVisible="false"
+                android:editable="false"
+                android:focusable="false"
+                android:gravity="center"
+                android:hint="请选择起点"
+                android:inputType="number"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:textSize="12sp"
+                android:textStyle="normal" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_toLeftOf="@+id/id_speed_area_end"
+                android:layout_toRightOf="@+id/id_speed_area_start"
+                android:gravity="center"
+                android:text="---"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <EditText
+                android:id="@+id/id_speed_area_end"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_alignParentRight="true"
+                android:layout_centerInParent="true"
+                android:background="@drawable/content_bg"
+                android:cursorVisible="false"
+                android:editable="false"
+                android:focusable="false"
+                android:gravity="center"
+                android:hint="请选择终点"
+                android:inputType="number"
+                android:text=""
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:textSize="12sp"
+                android:textStyle="normal" />
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+</LinearLayout>

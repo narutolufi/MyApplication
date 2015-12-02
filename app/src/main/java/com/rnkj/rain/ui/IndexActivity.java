@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.rnkj.rain.R;
 import com.rnkj.rain.activity.BaseActivity;
+import com.rnkj.rain.bean.MachineDetail;
 import com.rnkj.rain.fragment.BaseFragment;
 import com.rnkj.rain.fragment.MainFragment;
 import com.rnkj.rain.fragment.PlanFragment;
@@ -50,6 +51,8 @@ public class IndexActivity extends BaseActivity {
     private ShotFragment shotfragment;
     private SpeedFragment speedfragment;
     List<BaseFragment> fs;
+
+    public static MachineDetail mMachineDetail;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

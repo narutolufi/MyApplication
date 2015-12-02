@@ -7,8 +7,10 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 
 import com.rnkj.rain.R;
+import com.rnkj.rain.adapter.SpeedAreaAdapter;
 import com.rnkj.rain.bean.Area;
 
+import java.util.LinkedList;
 import java.util.List;
 
 import butterknife.Bind;
@@ -23,6 +25,7 @@ public class SpeedAreaFragment extends BaseFragment {
     ListView speedAreaListView;
 
     private List<Area> mAreaList;
+    private SpeedAreaAdapter speedAreaAdapter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -35,6 +38,26 @@ public class SpeedAreaFragment extends BaseFragment {
 
 
     private void initView(){
+        if(mAreaList == null){
+            mAreaList = new LinkedList<Area>();
+        }
+        speedAreaAdapter = new SpeedAreaAdapter(getActivity(),(LinkedList)mAreaList);
+        speedAreaAdapter.setOnSpeedClick(new SpeedAreaAdapter.OnSpeedClick() {
+            @Override
+            public void onAdd(int position, Area area) {
+                
+            }
+            @Override
+            public void onSubtract(int position, Area area) {
 
+            }
+        });
+        speedAreaListView.setAdapter(speedAreaAdapter);
+    }
+
+
+    public void setData(List<Area> areas){
+        this.mAreaList = areas;
+        speedAreaAdapter.notifyDataSetChanged();
     }
 }

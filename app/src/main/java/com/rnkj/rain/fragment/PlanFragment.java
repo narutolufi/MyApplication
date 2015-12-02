@@ -53,7 +53,6 @@ public class PlanFragment extends BaseFragment {
     private DoOrderPlanInterface doOrderPlanInterface;
 
 
-
     private CurrentPlans currentPlansFragment;
     private HistoryPlans historyPlansFragment;
     List<BaseFragment> fs;

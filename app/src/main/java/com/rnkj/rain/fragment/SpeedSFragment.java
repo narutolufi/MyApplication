@@ -7,6 +7,9 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 
 import com.rnkj.rain.R;
+import com.rnkj.rain.bean.Area;
+
+import java.util.List;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -29,6 +32,10 @@ public class SpeedSFragment extends BaseFragment {
     }
 
     public void initView(){
+
+    }
+
+    public void setData(List<Area> areas){
 
     }
 

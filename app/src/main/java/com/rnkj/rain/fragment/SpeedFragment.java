@@ -18,6 +18,7 @@ import com.rnkj.rain.bean.MachineDetail;
 import com.rnkj.rain.bean.Speed;
 import com.rnkj.rain.request.Dao;
 import com.rnkj.rain.request.results.ResponseAction;
+import com.rnkj.rain.ui.IndexActivity;
 import com.rnkj.rain.view.PieChart;
 import com.rnkj.rain.view.SwitchView;
 
@@ -196,31 +197,35 @@ public class SpeedFragment extends BaseFragment {
     }
 
     private void initData(String machine_id){
-        ((BaseActivity)getActivity()).showDialogLoading();
-        Dao.instance(getActivity()).machinenDetailRequest(new ResponseAction() {
-            @Override
-            public void onSuccess(IEntity entity) {
-                super.onSuccess(entity);
-                machineDetail = (MachineDetail)entity;
-                getActivity().runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        getSpeedList();
-                    }
-                });
-            }
+        if(IndexActivity.mMachineDetail == null){
+            ((BaseActivity)getActivity()).showDialogLoading();
+            Dao.instance(getActivity()).machinenDetailRequest(new ResponseAction() {
+                @Override
+                public void onSuccess(IEntity entity) {
+                    super.onSuccess(entity);
+                    IndexActivity.mMachineDetail = (MachineDetail)entity;
+                    getActivity().runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            getSpeedList();
+                        }
+                    });
+                }
 
-            @Override
-            public void onFailure(IEntity entity) {
-                super.onFailure(entity);
-                getActivity().runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        ((BaseActivity)getActivity()).dismissDialogLoading();
-                    }
-                });
-            }
-        },machine_id);
+                @Override
+                public void onFailure(IEntity entity) {
+                    super.onFailure(entity);
+                    getActivity().runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            ((BaseActivity)getActivity()).dismissDialogLoading();
+                        }
+                    });
+                }
+            },machine_id);
+        }else{
+            getSpeedList();
+        }
     }
 
 
@@ -235,7 +240,7 @@ public class SpeedFragment extends BaseFragment {
                     @Override
                     public void run() {
                         ((BaseActivity) getActivity()).dismissDialogLoading();
-
+                        resetView();
                     }
                 });
             }
@@ -263,71 +268,47 @@ public class SpeedFragment extends BaseFragment {
     }
 
 
-//    private void resetView(){
-//        if(machineDetail.getWorkingStatus().equalsIgnoreCase("NORMAL")){
-//            img_machine_status.setBackgroundResource(R.drawable.normal);
-//            txt_machine_status.setText(getResources().getString(R.string.machine_status_normal));
-//        }else if(machineDetail.getWorkingStatus().equalsIgnoreCase("TO_BE_INSPECTED")){
-//            img_machine_status.setBackgroundResource(R.drawable.to_be_inspected);
-//            txt_machine_status.setText(getResources().getString(R.string.machine_status_inspected));
-//        }else{
-//            img_machine_status.setBackgroundResource(R.drawable.error);
-//            txt_machine_status.setText(getResources().getString(R.string.machine_status_broken));
-//        }
-//
-//        if(machineDetail.getNetworkStatus().equalsIgnoreCase("ONLINE")){
-//            img_wifi_status.setBackgroundResource(R.drawable.online);
-//            txt_wifi_status.setText(getResources().getString(R.string.wifi_status_online));
-//        }else{
-//            img_wifi_status.setBackgroundResource(R.drawable.offline);
-//            txt_wifi_status.setText(getResources().getString(R.string.wifi_status_outline));
-//        }
-//        temperature_text.setText(String.format(getActivity().getResources().getString(R.string.mac_temperature),machineDetail.getTemperature()));
-//
-//        txt_progress.setText(String.format(getActivity().getResources().getString(R.string.string_progress),machineDetail.getPlan_progress() + "%"));
-//        int cost = machineDetail.getPlan_timeCost();
-//        int count = cost / 60;
-//        int remainder = cost % 60;
-//        String time = null;
-//        if(count <= 0){
-//            time = remainder + "分";
-//        }else{
-//            time = count + "时" + remainder + "分";
-//        }
-//        txt_time.setText(String.format(getActivity().getResources().getString(R.string.string_time),time));
-//        txt_speed.setText(String.format(getActivity().getResources().getString(R.string.string_speed),machineDetail.getSpeed()));
-//        txt_position.setText(String.format(getActivity().getResources().getString(R.string.string_position),machineDetail.getPosition()));
-//        txt_area.setText(String.format(getActivity().getResources().getString(R.string.string_area),machineDetail.getPlan_area_start(),machineDetail.getPlan_area_end()));
-//        txt_times.setText(String.format(getActivity().getResources().getString(R.string.string_times),machineDetail.getPlan_completedTimess(),machineDetail.getPlan_times()));
-//
-//        machine_current.setText(String.format(getActivity().getResources().getString(R.string.mac_current),machineDetail.getCurrent()));
-//        machine_pass.setText(String.format(getActivity().getResources().getString(R.string.mac_pass),machineDetail.getPressure()));
-//        machine_voltage.setText(String.format(getActivity().getResources().getString(R.string.mac_voltage),machineDetail.getVoltage()));
-//
-//        int direction = PieChart.DIRECTION_CLOCKWISE;
-//        if(machineDetail.getDirection().equalsIgnoreCase("CLOCKWISE")){
-//            direction = PieChart.DIRECTION_CLOCKWISE;
-//        }else{
-//            direction = PieChart.DIRECTION_ANTICLOCKWISE;
-//        }
-//        pieChartView.setCirAngleInfo((float) machineDetail.getPlan_area_start(), (float) machineDetail.getPlan_area_end(), (float) machineDetail.getPosition(), direction);
-//
-//        if(machineDetail.getStartSwitch().equalsIgnoreCase("ON")){
-//            btn_running.setBackgroundColor(getResources().getColor(R.color.status_stop));
-//            btn_running.setEnabled(true);
-//        }else{
-//            btn_running.setBackgroundColor(getResources().getColor(R.color.status_press));
-//            btn_running.setEnabled(false);
-//        }
-//
-//        if(machineDetail.getPauseSwitch().equalsIgnoreCase("ON")){
-//            btn_pause.setBackgroundColor(getResources().getColor(R.color.status_press));
-//            btn_pause.setEnabled(true);
-//        }else{
-//            btn_pause.setBackgroundColor(getResources().getColor(R.color.status_stop));
-//            btn_pause.setEnabled(false);
-//        }
-//    }
+    private void resetView(){
+        if(machineDetail.getWorkingStatus().equalsIgnoreCase("NORMAL")){
+            img_machine_status.setBackgroundResource(R.drawable.normal);
+            txt_machine_status.setText(getResources().getString(R.string.machine_status_normal));
+        }else if(machineDetail.getWorkingStatus().equalsIgnoreCase("TO_BE_INSPECTED")){
+            img_machine_status.setBackgroundResource(R.drawable.to_be_inspected);
+            txt_machine_status.setText(getResources().getString(R.string.machine_status_inspected));
+        }else{
+            img_machine_status.setBackgroundResource(R.drawable.error);
+            txt_machine_status.setText(getResources().getString(R.string.machine_status_broken));
+        }
+
+        if(machineDetail.getNetworkStatus().equalsIgnoreCase("ONLINE")){
+            img_wifi_status.setBackgroundResource(R.drawable.online);
+            txt_wifi_status.setText(getResources().getString(R.string.wifi_status_online));
+        }else{
+            img_wifi_status.setBackgroundResource(R.drawable.offline);
+            txt_wifi_status.setText(getResources().getString(R.string.wifi_status_outline));
+        }
+        temperature_text.setText(String.format(getActivity().getResources().getString(R.string.mac_temperature),machineDetail.getTemperature()));
+
+        txt_progress.setText(String.format(getActivity().getResources().getString(R.string.string_progress),machineDetail.getPlan_progress() + "%"));
+        int cost = machineDetail.getPlan_timeCost();
+        int count = cost / 60;
+        int remainder = cost % 60;
+        String time = null;
+        if(count <= 0){
+            time = remainder + "分";
+        }else{
+            time = count + "时" + remainder + "分";
+        }
+        txt_time.setText(String.format(getActivity().getResources().getString(R.string.string_time),time));
+        txt_speed.setText(String.format(getActivity().getResources().getString(R.string.string_speed),machineDetail.getSpeed()));
+        txt_position.setText(String.format(getActivity().getResources().getString(R.string.string_position),machineDetail.getPosition()));
+        txt_area.setText(String.format(getActivity().getResources().getString(R.string.string_area),machineDetail.getPlan_area_start(),machineDetail.getPlan_area_end()));
+        txt_times.setText(String.format(getActivity().getResources().getString(R.string.string_times),machineDetail.getPlan_completedTimess(),machineDetail.getPlan_times()));
+
+        speedAreaFragment.setData(speed.getAreaList());
+        speedSFragment.setData(speed.getAreaList());
+        speedModeFragment.setData(speed.getAreaList());
+    }
 
 
     @Override

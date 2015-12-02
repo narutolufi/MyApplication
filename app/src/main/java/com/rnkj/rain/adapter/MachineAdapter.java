@@ -133,11 +133,11 @@ public class MachineAdapter extends BaseAdapter{
 
 
     public interface OnMachineSettingClick{
-        public void onClick(Machine machine);
+        void onClick(Machine machine);
     }
 
 
     public interface OnMachineDetailClick{
-        public void onClick(Machine machine);
+        void onClick(Machine machine);
     }
 }
