@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="60dp"
-    android:background="#FFFFFF"
+    android:layout_height="40dp"
+    android:background="#F5F5F5"
     android:orientation="horizontal">
 
     <RelativeLayout
@@ -10,6 +10,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
         >
 
         <TextView
@@ -35,20 +36,20 @@
 
             <Button
                 android:id="@+id/id_view_area_cancel"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
                 android:layout_alignParentLeft="true"
                 android:background="@drawable/cancel" />
 
             <EditText
                 android:id="@+id/id_view_area_speedviewset"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="30dp"
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp"
                 android:layout_toLeftOf="@+id/id_view_area_confrim"
                 android:layout_toRightOf="@+id/id_view_area_cancel"
-                android:background="@drawable/speedview"
+                android:background="@drawable/content_bg"
                 android:gravity="center"
                 android:inputType="number"
                 android:text="100"
@@ -57,11 +58,10 @@
 
             <Button
                 android:id="@+id/id_view_area_confrim"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
                 android:layout_alignParentRight="true"
                 android:background="@drawable/confirm" />
         </RelativeLayout>
     </RelativeLayout>
-
 </LinearLayout>

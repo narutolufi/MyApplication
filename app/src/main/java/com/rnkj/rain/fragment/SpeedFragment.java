@@ -88,8 +88,7 @@ public class SpeedFragment extends BaseFragment {
     List<BaseFragment> fs;
 
     private String machine_id;
-    private MachineDetail machineDetail;
-    private Speed speed;
+    public static Speed speed;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -111,7 +110,6 @@ public class SpeedFragment extends BaseFragment {
         speedAreaFragment = new SpeedAreaFragment();
         speedSFragment = new SpeedSFragment();
         speedModeFragment = new SpeedModeFragment();
-
         fs.add(speedAreaFragment);
         fs.add(speedSFragment);
         fs.add(speedModeFragment);
@@ -123,6 +121,44 @@ public class SpeedFragment extends BaseFragment {
         tab_speed.setOnClickListener(new planTabClick());
         tab_mode.setOnClickListener(new planTabClick());
         initViewPager();
+
+        if(IndexActivity.mMachineDetail.getWorkingStatus().equalsIgnoreCase("NORMAL")){
+            img_machine_status.setBackgroundResource(R.drawable.normal);
+            txt_machine_status.setText(getResources().getString(R.string.machine_status_normal));
+        }else if(IndexActivity.mMachineDetail.getWorkingStatus().equalsIgnoreCase("TO_BE_INSPECTED")){
+            img_machine_status.setBackgroundResource(R.drawable.to_be_inspected);
+            txt_machine_status.setText(getResources().getString(R.string.machine_status_inspected));
+        }else{
+            img_machine_status.setBackgroundResource(R.drawable.error);
+            txt_machine_status.setText(getResources().getString(R.string.machine_status_broken));
+        }
+
+        if(IndexActivity.mMachineDetail.getNetworkStatus().equalsIgnoreCase("ONLINE")){
+            img_wifi_status.setBackgroundResource(R.drawable.online);
+            txt_wifi_status.setText(getResources().getString(R.string.wifi_status_online));
+        }else{
+            img_wifi_status.setBackgroundResource(R.drawable.offline);
+            txt_wifi_status.setText(getResources().getString(R.string.wifi_status_outline));
+        }
+        temperature_text.setText(String.format(getActivity().getResources().getString(R.string.mac_temperature),IndexActivity.mMachineDetail.getTemperature()));
+
+        txt_progress.setText(String.format(getActivity().getResources().getString(R.string.string_progress),IndexActivity.mMachineDetail.getPlan_progress() + "%"));
+        int cost = IndexActivity.mMachineDetail.getPlan_timeCost();
+        int count = cost / 60;
+        int remainder = cost % 60;
+        String time = null;
+        if(count <= 0){
+            time = remainder + "分";
+        }else{
+            time = count + "时" + remainder + "分";
+        }
+        txt_time.setText(String.format(getActivity().getResources().getString(R.string.string_time),time));
+        txt_speed.setText(String.format(getActivity().getResources().getString(R.string.string_speed),IndexActivity.mMachineDetail.getSpeed()));
+        txt_position.setText(String.format(getActivity().getResources().getString(R.string.string_position),IndexActivity.mMachineDetail.getPosition()));
+        txt_area.setText(String.format(getActivity().getResources().getString(R.string.string_area),IndexActivity.mMachineDetail.getPlan_area_start(),IndexActivity.mMachineDetail.getPlan_area_end()));
+        txt_times.setText(String.format(getActivity().getResources().getString(R.string.string_times),IndexActivity.mMachineDetail.getPlan_completedTimess(),IndexActivity.mMachineDetail.getPlan_times()));
+
+        getSpeedList();
     }
 
     private void initViewPager() {
@@ -258,62 +294,15 @@ public class SpeedFragment extends BaseFragment {
         }, machine_id);
     }
 
-
-
-
-
     @OnClick(R.id.img_refresh)
     public void img_refresh(){
-        initData(machine_id);
+        getSpeedList();
     }
 
 
     private void resetView(){
-        if(machineDetail.getWorkingStatus().equalsIgnoreCase("NORMAL")){
-            img_machine_status.setBackgroundResource(R.drawable.normal);
-            txt_machine_status.setText(getResources().getString(R.string.machine_status_normal));
-        }else if(machineDetail.getWorkingStatus().equalsIgnoreCase("TO_BE_INSPECTED")){
-            img_machine_status.setBackgroundResource(R.drawable.to_be_inspected);
-            txt_machine_status.setText(getResources().getString(R.string.machine_status_inspected));
-        }else{
-            img_machine_status.setBackgroundResource(R.drawable.error);
-            txt_machine_status.setText(getResources().getString(R.string.machine_status_broken));
-        }
-
-        if(machineDetail.getNetworkStatus().equalsIgnoreCase("ONLINE")){
-            img_wifi_status.setBackgroundResource(R.drawable.online);
-            txt_wifi_status.setText(getResources().getString(R.string.wifi_status_online));
-        }else{
-            img_wifi_status.setBackgroundResource(R.drawable.offline);
-            txt_wifi_status.setText(getResources().getString(R.string.wifi_status_outline));
-        }
-        temperature_text.setText(String.format(getActivity().getResources().getString(R.string.mac_temperature),machineDetail.getTemperature()));
-
-        txt_progress.setText(String.format(getActivity().getResources().getString(R.string.string_progress),machineDetail.getPlan_progress() + "%"));
-        int cost = machineDetail.getPlan_timeCost();
-        int count = cost / 60;
-        int remainder = cost % 60;
-        String time = null;
-        if(count <= 0){
-            time = remainder + "分";
-        }else{
-            time = count + "时" + remainder + "分";
-        }
-        txt_time.setText(String.format(getActivity().getResources().getString(R.string.string_time),time));
-        txt_speed.setText(String.format(getActivity().getResources().getString(R.string.string_speed),machineDetail.getSpeed()));
-        txt_position.setText(String.format(getActivity().getResources().getString(R.string.string_position),machineDetail.getPosition()));
-        txt_area.setText(String.format(getActivity().getResources().getString(R.string.string_area),machineDetail.getPlan_area_start(),machineDetail.getPlan_area_end()));
-        txt_times.setText(String.format(getActivity().getResources().getString(R.string.string_times),machineDetail.getPlan_completedTimess(),machineDetail.getPlan_times()));
-
-        speedAreaFragment.setData(speed.getAreaList());
-        speedSFragment.setData(speed.getAreaList());
-        speedModeFragment.setData(speed.getAreaList());
-    }
-
-
-    @Override
-    public void onResume() {
-        super.onResume();
-        initData(machine_id);
+        speedAreaFragment.resetView();
+        speedModeFragment.resetView();
+        speedSFragment.resetView();
     }
 }

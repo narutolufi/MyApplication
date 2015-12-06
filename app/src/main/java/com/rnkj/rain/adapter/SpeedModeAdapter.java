@@ -67,7 +67,6 @@ public class SpeedModeAdapter extends BaseAdapter {
         }else{
             viewHolder.mSwitchView.switching(SwitchView.TYPE_RIGHT);
         }
-
         if(onSpeedModeSwitchListener != null){
             viewHolder.mSwitchView.setOnSwitchListener(new SwitchView.OnSwitchListener() {
                 @Override
@@ -76,7 +75,6 @@ public class SpeedModeAdapter extends BaseAdapter {
                 }
             });
         }
-
         return convertView;
     }
 

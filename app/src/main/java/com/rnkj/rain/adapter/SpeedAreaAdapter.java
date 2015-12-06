@@ -21,10 +21,10 @@ public class SpeedAreaAdapter extends BaseAdapter {
 
     private LinkedList<Area> areas;
 
-    private OnSpeedClick onSpeedClick;
+    private OnSpeedAreaClick onSpeedAreaClick;
 
-    public void setOnSpeedClick(OnSpeedClick onSpeedClick){
-        this.onSpeedClick = onSpeedClick;
+    public void setOnSpeedClick(OnSpeedAreaClick onSpeedAreaClick){
+        this.onSpeedAreaClick = onSpeedAreaClick;
     }
 
     public SpeedAreaAdapter(Context context, LinkedList<Area> areas) {
@@ -63,6 +63,22 @@ public class SpeedAreaAdapter extends BaseAdapter {
         viewHolder.speed_area_start.setText(areas.get(position).getStart()+"");
         viewHolder.speed_area_end.setText(areas.get(position).getEnd()+"");
 
+        viewHolder.speed_area_end.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                if(onSpeedAreaClick != null){
+                    onSpeedAreaClick.onClick(position,areas.get(position));
+                }
+            }
+        });
+        viewHolder.speed_area_start.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                if(onSpeedAreaClick != null){
+                    onSpeedAreaClick.onClick(position,areas.get(position));
+                }
+            }
+        });
         return convertView;
     }
 
@@ -70,8 +86,7 @@ public class SpeedAreaAdapter extends BaseAdapter {
         EditText speed_area_start,speed_area_end;
     }
 
-    public interface OnSpeedClick{
-        void onAdd(int position,Area area);
-        void onSubtract(int position,Area area);
+    public interface OnSpeedAreaClick{
+        void onClick(int position,Area area);
     }
 }
