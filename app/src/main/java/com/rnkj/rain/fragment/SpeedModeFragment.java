@@ -29,6 +29,9 @@ public class SpeedModeFragment extends BaseFragment {
     @Bind(R.id.listview)
     ListView speedModeListView;
 
+    @Bind(R.id.id_mode_switch)
+    SwitchView mode_switch;
+
     private SpeedModeAdapter speedModeAdapter;
 
     private List<Area> mAreaList;
@@ -36,37 +39,58 @@ public class SpeedModeFragment extends BaseFragment {
     private boolean isCreated = false;
 
 
-
     @Override
-     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);
-        View view  = inflater.inflate(R.layout.fragment_speedmode,null);
+        View view = inflater.inflate(R.layout.fragment_speedmode, null);
         ButterKnife.bind(this, view);
         initView();
         isCreated = true;
         return view;
     }
 
-    private void initView(){
-        if(SpeedFragment.speed == null){
+    private void initView() {
+        if (SpeedFragment.speed == null) {
             return;
         }
+        mode_switch.getLeftView().setText("开启");
+        mode_switch.getRightView().setText("关闭");
+        if (SpeedFragment.speed.getAutoPump().equalsIgnoreCase("ON")) {
+            mode_switch.switching(SwitchView.TYPE_LEFT);
+        } else {
+            mode_switch.switching(SwitchView.TYPE_RIGHT);
+        }
+        mode_switch.setOnSwitchListener(new SwitchView.OnSwitchListener() {
+            @Override
+            public void onCheck(SwitchView sv, boolean checkLeft, boolean checkRight) {
+                if (checkLeft) {
+                    SpeedFragment.speed.setAutoPump("ON");
+                } else if (checkRight) {
+                    SpeedFragment.speed.setAutoPump("OFF");
+                }
+            }
+        });
+
         mAreaList = SpeedFragment.speed.getAreaList();
-        Log.i("francis","SpeedModeFragment--->size----->" + mAreaList.size());
-        speedModeAdapter = new SpeedModeAdapter(getActivity(),(LinkedList)mAreaList);
+        Log.i("francis", "SpeedModeFragment--->size----->" + mAreaList.size());
+        speedModeAdapter = new SpeedModeAdapter(getActivity(), (LinkedList) mAreaList);
         speedModeAdapter.setOnSpeedModeSwitchListener(new SpeedModeAdapter.OnSpeedModeSwitchListener() {
             @Override
             public void onCheck(int position, Area area, SwitchView sv, boolean checkLeft, boolean checkRight) {
-                Log.i("francis", "setOnSpeedModeSwitchListener--->");
+                if(checkLeft){
+                    SpeedFragment.speed.getAreaList().get(position).setPump("ON");
+                }else if(checkRight){
+                    SpeedFragment.speed.getAreaList().get(position).setPump("OFF");
+                }
             }
         });
         speedModeListView.setAdapter(speedModeAdapter);
     }
 
-    public void resetView(){
-        if(speedModeAdapter != null){
+    public void resetView() {
+        if (speedModeAdapter != null) {
             speedModeAdapter.notifyDataSetChanged();
-        }else if(isCreated){
+        } else if (isCreated) {
             initView();
         }
     }
