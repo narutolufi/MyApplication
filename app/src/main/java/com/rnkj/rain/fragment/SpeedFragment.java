@@ -1,5 +1,6 @@
 package com.rnkj.rain.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -19,6 +20,7 @@ import com.rnkj.rain.bean.Speed;
 import com.rnkj.rain.request.Dao;
 import com.rnkj.rain.request.results.ResponseAction;
 import com.rnkj.rain.ui.IndexActivity;
+import com.rnkj.rain.ui.SpeedAddActivity;
 import com.rnkj.rain.view.PieChart;
 import com.rnkj.rain.view.SwitchView;
 
@@ -297,6 +299,12 @@ public class SpeedFragment extends BaseFragment {
     @OnClick(R.id.img_refresh)
     public void img_refresh(){
         getSpeedList();
+    }
+
+
+    @OnClick(R.id.id_view_add_speed)
+    public void addSpeedArea(){
+        startActivity(new Intent(getActivity(), SpeedAddActivity.class));
     }
 
 

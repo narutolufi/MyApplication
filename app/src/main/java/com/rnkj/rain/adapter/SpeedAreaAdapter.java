@@ -21,11 +21,6 @@ public class SpeedAreaAdapter extends BaseAdapter {
 
     private LinkedList<Area> areas;
 
-    private OnSpeedAreaClick onSpeedAreaClick;
-
-    public void setOnSpeedClick(OnSpeedAreaClick onSpeedAreaClick){
-        this.onSpeedAreaClick = onSpeedAreaClick;
-    }
 
     public SpeedAreaAdapter(Context context, LinkedList<Area> areas) {
         this.mContext = context;
@@ -50,43 +45,22 @@ public class SpeedAreaAdapter extends BaseAdapter {
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
         ViewHolder viewHolder = null;
-        if(convertView==null){
+        if (convertView == null) {
             convertView = LayoutInflater.from(mContext).inflate(
                     R.layout.speed_area_item, null);
             viewHolder = new ViewHolder();
-            viewHolder.speed_area_start = (EditText)convertView.findViewById(R.id.id_speed_area_start);
-            viewHolder.speed_area_end = (EditText)convertView.findViewById(R.id.id_speed_area_end);
+            viewHolder.speed_area_start = (EditText) convertView.findViewById(R.id.id_speed_area_start);
+            viewHolder.speed_area_end = (EditText) convertView.findViewById(R.id.id_speed_area_end);
             convertView.setTag(viewHolder);
-        }else{
-            viewHolder = (ViewHolder)convertView.getTag();
+        } else {
+            viewHolder = (ViewHolder) convertView.getTag();
         }
-        viewHolder.speed_area_start.setText(areas.get(position).getStart()+"");
-        viewHolder.speed_area_end.setText(areas.get(position).getEnd()+"");
-
-        viewHolder.speed_area_end.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v) {
-                if(onSpeedAreaClick != null){
-                    onSpeedAreaClick.onClick(position,areas.get(position));
-                }
-            }
-        });
-        viewHolder.speed_area_start.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v) {
-                if(onSpeedAreaClick != null){
-                    onSpeedAreaClick.onClick(position,areas.get(position));
-                }
-            }
-        });
+        viewHolder.speed_area_start.setText(areas.get(position).getStart() + "");
+        viewHolder.speed_area_end.setText(areas.get(position).getEnd() + "");
         return convertView;
     }
 
-    public class ViewHolder{
-        EditText speed_area_start,speed_area_end;
-    }
-
-    public interface OnSpeedAreaClick{
-        void onClick(int position,Area area);
+    public class ViewHolder {
+        EditText speed_area_start, speed_area_end;
     }
 }

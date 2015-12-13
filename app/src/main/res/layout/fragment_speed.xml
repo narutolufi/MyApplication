@@ -308,20 +308,23 @@
                     android:id="@+id/btn_running"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:layout_alignParentTop="true"
-                    android:layout_marginRight="90dp"
-                    android:background="@color/status_stop"
-                    android:text="运行"
+                    android:layout_marginRight="87dp"
+                    android:background="@color/status_press"
+                    android:text="确定"
                     android:textColor="@color/white"
-                    android:textSize="16sp" />
+                    android:textSize="16sp"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignRight="@+id/btn_pasue"
+                    android:layout_alignEnd="@+id/btn_pasue"
+                    android:layout_marginEnd="87dp" />
 
                 <Button
                     android:id="@+id/btn_pasue"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_marginLeft="@dimen/kaishi_margin"
-                    android:background="@color/status_press"
-                    android:text="暂停"
+                    android:background="@color/status_stop"
+                    android:text="取消"
                     android:textColor="@color/white"
                     android:textSize="16sp" />
             </RelativeLayout>

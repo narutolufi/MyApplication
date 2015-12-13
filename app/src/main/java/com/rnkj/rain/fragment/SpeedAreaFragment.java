@@ -6,12 +6,14 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.rnkj.rain.R;
 import com.rnkj.rain.adapter.SpeedAreaAdapter;
 import com.rnkj.rain.bean.Area;
 import com.rnkj.rain.bean.Speed;
+import com.rnkj.rain.utils.AreaPickerDLUtil;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -49,13 +51,21 @@ public class SpeedAreaFragment extends BaseFragment {
         mAreaList = SpeedFragment.speed.getAreaList();
         Log.i("francis", "SpeedAreaFragment--->size----->" + mAreaList.size());
         speedAreaAdapter = new SpeedAreaAdapter(getActivity(),(LinkedList)mAreaList);
-        speedAreaAdapter.setOnSpeedClick(new SpeedAreaAdapter.OnSpeedAreaClick() {
+        speedAreaListView.setAdapter(speedAreaAdapter);
+        speedAreaListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
-            public void onClick(int position, Area area) {
-                Log.i("francis", "setOnSpeedClick--->");
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Log.i("francis","position----->" + position);
+                AreaPickerDLUtil areaPickerDLUtil = new AreaPickerDLUtil(getActivity(),SpeedFragment.speed.getAreaList().get(position),position);
+                areaPickerDLUtil.areaPicKDialog();
+                areaPickerDLUtil.setAreaCallback(new AreaPickerDLUtil.SettingsAreaCallback() {
+                    @Override
+                    public void onCallback() {
+                        speedAreaAdapter.notifyDataSetChanged();
+                    }
+                });
             }
         });
-        speedAreaListView.setAdapter(speedAreaAdapter);
     }
 
     public void resetView(){
