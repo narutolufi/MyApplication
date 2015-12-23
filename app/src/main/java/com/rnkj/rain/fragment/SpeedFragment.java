@@ -89,13 +89,14 @@ public class SpeedFragment extends BaseFragment {
     private SpeedModeFragment speedModeFragment;
     List<BaseFragment> fs;
 
-    private String machine_id;
+    private String machine_id,machine_name;
     public static Speed speed;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         machine_id = getActivity().getIntent().getStringExtra("machine_id");
+        machine_name = getActivity().getIntent().getStringExtra("machine_name");
     }
 
     @Override
@@ -304,7 +305,10 @@ public class SpeedFragment extends BaseFragment {
 
     @OnClick(R.id.id_view_add_speed)
     public void addSpeedArea(){
-        startActivity(new Intent(getActivity(), SpeedAddActivity.class));
+        Intent intent = new Intent(getActivity(), SpeedAddActivity.class);
+        intent.putExtra("machine_id", machine_id);
+        intent.putExtra("machine_name", machine_name);
+        startActivity(intent);
     }
 
 

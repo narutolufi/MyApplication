@@ -12,7 +12,13 @@ import android.widget.TextView;
 import com.rnkj.rain.R;
 import com.rnkj.rain.activity.BaseActivity;
 import com.rnkj.rain.bean.Area;
+import com.rnkj.rain.bean.IEntity;
+import com.rnkj.rain.callback.OnAreaCallback;
 import com.rnkj.rain.fragment.SpeedFragment;
+import com.rnkj.rain.request.Dao;
+import com.rnkj.rain.request.results.ResponseAction;
+import com.rnkj.rain.utils.AreaPickerDLUtil;
+import com.rnkj.rain.utils.SpUtil;
 import com.rnkj.rain.view.SwitchView;
 
 import java.util.ArrayList;
@@ -51,6 +57,13 @@ public class SpeedAddActivity extends BaseActivity {
 
     private Area selectedArea;
 
+    private int selectedPos = 0;
+
+    private AreaPickerDLUtil areaPickerDLUtil;
+
+    private String machine_id,machine_name,user_name;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,6 +73,11 @@ public class SpeedAddActivity extends BaseActivity {
 
     private void initView(){
         getSupportActionBar().hide();
+        machine_id = (String) getIntent().getSerializableExtra("machine_id");
+        machine_name = (String) getIntent().getSerializableExtra("machine_name");
+        user_name = SpUtil.getInstance(this).getUserName();
+        txt_machinename.setText(machine_name);
+        index_username.setText(user_name);
         speed_add_sudu.setOnClickListener(new DateTimePickerOnClickListener());
         speed_area_start.setOnClickListener(new DateTimePickerOnClickListener());
         speed_area_end.setOnClickListener(new DateTimePickerOnClickListener());
@@ -75,18 +93,20 @@ public class SpeedAddActivity extends BaseActivity {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view,int pos, long id) {
                 selectedArea = SpeedFragment.speed.getAreaList().get(pos);
+                selectedPos = pos;
                 resetView();
             }
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
                 selectedArea = SpeedFragment.speed.getAreaList().get(0);
+                selectedPos = 0;
                 resetView();
             }
         });
     }
 
     private void resetView(){
-        speed_add_sudu.setText(selectedArea.getSpeed());
+        speed_add_sudu.setText(selectedArea.getSpeed()+"");
         speed_area_start.setText(String.format(getResources().getString(R.string.str_area_mark), selectedArea.getStart()));
         speed_area_end.setText(String.format(getResources().getString(R.string.str_area_mark),selectedArea.getEnd()));
         if(selectedArea.getPump().equalsIgnoreCase("ON")){
@@ -94,12 +114,32 @@ public class SpeedAddActivity extends BaseActivity {
         }else{
             mode_switchView.switching(SwitchView.TYPE_RIGHT);
         }
+        mode_switchView.setOnSwitchListener(new SwitchView.OnSwitchListener() {
+            @Override
+            public void onCheck(SwitchView sv, boolean checkLeft, boolean checkRight) {
+                if(checkLeft){
+                    SpeedFragment.speed.getAreaList().get(selectedPos).setPump("ON");
+                }else{
+                    SpeedFragment.speed.getAreaList().get(selectedPos).setPump("OFF");
+                }
+            }
+        });
     }
 
 
     @OnClick(R.id.id_btn_add_speed)
     public void addSuccess(){
+        Dao.instance(this).getSetSpeedsRequest(new ResponseAction() {
+            @Override
+            public void onSuccess(IEntity entity) {
+                super.onSuccess(entity);
+            }
 
+            @Override
+            public void onFailure(IEntity entity) {
+                super.onFailure(entity);
+            }
+        },machine_id,SpeedFragment.speed);
     }
 
     @OnClick(R.id.id_btn_cancel_speed)
@@ -107,16 +147,42 @@ public class SpeedAddActivity extends BaseActivity {
         finish();
     }
 
-
-
     class DateTimePickerOnClickListener implements View.OnClickListener {
         @Override
         public void onClick(View v) {
             switch (v.getId()) {
                 case R.id.id_speed_add_sudu:
+                    areaPickerDLUtil = new AreaPickerDLUtil(SpeedAddActivity.this,selectedArea);
+                    areaPickerDLUtil.areaPicKDialogForSpeed(new OnAreaCallback() {
+                        @Override
+                        public void OnSettingArea(int startArea, int endArea) {
+
+                        }
+
+                        @Override
+                        public void OnSettingSpeed(int speed) {
+                            speed_add_sudu.setText(speed + "");
+                            SpeedFragment.speed.getAreaList().get(selectedPos).setSpeed(speed);
+                        }
+                    });
                     break;
                 case R.id.id_speed_area_start:
                 case R.id.id_speed_area_end:
+                    areaPickerDLUtil = new AreaPickerDLUtil(SpeedAddActivity.this,selectedArea);
+                    areaPickerDLUtil.areaPicKDialogForAdd(new OnAreaCallback() {
+                        @Override
+                        public void OnSettingArea(int startArea, int endArea) {
+                            speed_area_start.setText(startArea + "");
+                            speed_area_end.setText(endArea + "");
+                            SpeedFragment.speed.getAreaList().get(selectedPos).setStart(startArea);
+                            SpeedFragment.speed.getAreaList().get(selectedPos).setEnd(endArea);
+                        }
+
+                        @Override
+                        public void OnSettingSpeed(int speed) {
+
+                        }
+                    });
                     break;
             }
         }

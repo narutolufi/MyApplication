@@ -82,6 +82,8 @@ public class Dao {
 
     private static final String MACHINE_SPEED_LIST = "security/machine/speedstrategy/get";
 
+    private static final String MACHINE_SPEED_SET = "security/machine/speedstrategy/set";
+
     private static Dao mInstance;
 
     private Context mContext;
@@ -1072,6 +1074,107 @@ public class Dao {
             }
             try {
                 String result = response.body().string();
+                if (TextUtils.isEmpty(result)) {
+                    responseAction.onFailure(new Message("null", Message.ERROR_STATUS));
+                    return;
+                }
+                JSONObject jsonObject = new JSONObject(result);
+                Speed speed = new Speed(jsonObject);
+                JSONArray areaListJsonArray = jsonObject.optJSONArray("areas");
+                if(areaListJsonArray == null){
+                    Message message = new Message("null", Message.ERROR_CODE);
+                    responseAction.onFailure(message);
+                    return;
+                }
+                List<Area> areas = new LinkedList<Area>();
+                for (int i = 0; i < areaListJsonArray.length(); i++){
+                    Area area = new Area(areaListJsonArray.getJSONObject(i));
+                    areas.add(area);
+                }
+                speed.setAreaList(areas);
+                responseAction.onSuccess(speed);
+            } catch (JSONException e) {
+                e.printStackTrace();
+                Message message = new Message(e.getMessage(), Message.ERROR_CODE);
+                responseAction.onFailure(message);
+            }
+        }
+    }
+
+
+    //添加Speed
+    public void getSetSpeedsRequest(final ResponseAction responseAction,String machine_id,Speed speed){
+        StringBuffer requestBodyJson = new StringBuffer();
+        requestBodyJson.append("{");
+        requestBodyJson.append("\"autoSpeed\": ");
+        requestBodyJson.append("\""+speed.getAutoSpeed()+"\"");
+        requestBodyJson.append(",");
+        requestBodyJson.append("\"autoPump\": ");
+        requestBodyJson.append("\""+speed.getAutoPump()+"\"");
+        requestBodyJson.append(",");
+        requestBodyJson.append("\"areas\":[");
+        for (int i = 0; i < speed.getAreaList().size(); i++){
+            if(i + 1 == speed.getAreaList().size()){
+                requestBodyJson.append("{\"start\":");
+                requestBodyJson.append(speed.getAreaList().get(i).getStart() + ",");
+                requestBodyJson.append("\"end\":");
+                requestBodyJson.append(speed.getAreaList().get(i).getEnd() + ",");
+                requestBodyJson.append("\"speed\":");
+                requestBodyJson.append(speed.getAreaList().get(i).getSpeed() + ",");
+                requestBodyJson.append("\"pump\":");
+                requestBodyJson.append("\""+speed.getAreaList().get(i).getPump()+"\"}]");
+            }else{
+                requestBodyJson.append("{\"start\":");
+                requestBodyJson.append(speed.getAreaList().get(i).getStart() + ",");
+                requestBodyJson.append("\"end\":");
+                requestBodyJson.append(speed.getAreaList().get(i).getEnd() + ",");
+                requestBodyJson.append("\"speed\":");
+                requestBodyJson.append(speed.getAreaList().get(i).getSpeed() + ",");
+                requestBodyJson.append("\"pump\":");
+                requestBodyJson.append("\""+speed.getAreaList().get(i).getPump()+"\"},");
+            }
+        }
+        requestBodyJson.append("}");
+        Log.i("francis","str---->" + requestBodyJson.toString());
+        RequestBody jsonBody = RequestBody.create(JSON, requestBodyJson.toString());
+        String base_url = String.format(BASE_URL,MACHINE_SPEED_SET);
+        StringBuffer stringBuffer = new StringBuffer(base_url);
+        stringBuffer.append("?machineid=");
+        stringBuffer.append(machine_id);
+        Request request;
+        if(!TextUtils.isEmpty(SpUtil.getInstance(mContext).getCookies())){
+            request = new Request.Builder().url(stringBuffer.toString()).header("Cookie",SpUtil.getInstance(mContext).getCookies()).post(jsonBody).build();
+        }else{
+            request = new Request.Builder().url(stringBuffer.toString()).post(jsonBody).build();
+        }
+        Log.i("francis","url---->" + stringBuffer.toString());
+        HttpUtils.asyncEnqueue(request,new GetSetSpeedsCallBack(responseAction));
+    }
+
+    //计划详情
+    private class GetSetSpeedsCallBack implements Callback {
+        private ResponseAction responseAction;
+
+        private GetSetSpeedsCallBack(ResponseAction responseAction) {
+            this.responseAction = responseAction;
+        }
+
+        @Override
+        public void onFailure(Request request, IOException e) {
+            Message message = new Message(e.getMessage(), Message.ERROR_CODE);
+            responseAction.onFailure(message);
+        }
+
+        @Override
+        public void onResponse(Response response) throws IOException {
+            if (!response.isSuccessful() || response.code() != 200) {
+                Message message = new Message("Request Failure", Message.ERROR_CODE);
+                responseAction.onFailure(message);
+                return;
+            }
+            try {
+                String result = response.body().string();
+                Log.i("francis","result------>" + result);
                 if (TextUtils.isEmpty(result)) {
                     responseAction.onFailure(new Message("null", Message.ERROR_STATUS));
                     return;

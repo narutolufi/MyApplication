@@ -9,6 +9,7 @@ import android.widget.NumberPicker;
 
 import com.rnkj.rain.R;
 import com.rnkj.rain.bean.Area;
+import com.rnkj.rain.callback.OnAreaCallback;
 import com.rnkj.rain.fragment.SpeedFragment;
 
 /**
@@ -16,13 +17,13 @@ import com.rnkj.rain.fragment.SpeedFragment;
  */
 public class AreaPickerDLUtil {
 
-    private NumberPicker startArea,endArea;
+    private NumberPicker startArea,endArea,speedArea;
     private AlertDialog ad;
     private Activity activity;
 
     private SettingsAreaCallback mSettingsAreaCallback;
 
-    private int areaStart_value = 0,areaEnd_value = 270;
+    private int areaStart_value = 0,areaEnd_value = 270,speedArea_value = 0;
 
     private Area selectedArea;
 
@@ -37,7 +38,11 @@ public class AreaPickerDLUtil {
         this.selectedArea = area;
         this.selectedPosition = position;
         this.areaSize = SpeedFragment.speed.getAreaList().size();
+    }
 
+    public AreaPickerDLUtil(Activity activity,Area area) {
+        this.activity = activity;
+        this.selectedArea = area;
     }
 
     public void setAreaCallback(SettingsAreaCallback settingsAreaCallback){
@@ -54,6 +59,28 @@ public class AreaPickerDLUtil {
         startArea.setValue(selectedArea.getStart());
         endArea.setValue(selectedArea.getEnd());
     }
+
+    private void initAreaPickerForAdd(NumberPicker startArea,NumberPicker endArea) {
+        startArea.setEnabled(false);
+        if(selectedArea.getEnd() == 0){
+            endArea.setMaxValue(359);
+        }else{
+            endArea.setMaxValue(selectedArea.getEnd());
+        }
+        endArea.setMinValue(selectedArea.getStart()+1);
+        endArea.setOnValueChangedListener(new areaValueChargeListener());
+        startArea.setValue(selectedArea.getStart());
+        endArea.setValue(selectedArea.getEnd());
+    }
+
+    private void initAreaPickerForSpeed(NumberPicker speedArea) {
+        speedArea.setValue(selectedArea.getSpeed());
+        speedArea.setMaxValue(100);
+        speedArea.setMinValue(1);
+        speedArea.setOnValueChangedListener(new speedValueChargeListener());
+
+    }
+
 
 
     public AlertDialog areaPicKDialog() {
@@ -80,6 +107,54 @@ public class AreaPickerDLUtil {
         return ad;
     }
 
+    public AlertDialog areaPicKDialogForAdd(final OnAreaCallback onAreaCallback) {
+        LinearLayout dateTimeLayout = (LinearLayout) activity.getLayoutInflater().inflate(R.layout.dialog_areapicker, null);
+        startArea = (NumberPicker) dateTimeLayout.findViewById(R.id.start_area);
+        endArea = (NumberPicker) dateTimeLayout.findViewById(R.id.end_area);
+        initAreaPickerForAdd(startArea, endArea);
+        ad = new AlertDialog.Builder(activity)
+                .setTitle("设置起点~终点")
+                .setView(dateTimeLayout)
+                .setPositiveButton("设置", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int whichButton) {
+                        if(onAreaCallback != null){
+                            onAreaCallback.OnSettingArea(areaStart_value,areaEnd_value);
+                        }
+                    }
+                })
+                .setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int whichButton) {
+                        dialog.dismiss();
+                    }
+                }).show();
+
+        return ad;
+    }
+
+
+    public AlertDialog areaPicKDialogForSpeed(final OnAreaCallback onAreaCallback) {
+        LinearLayout dateTimeLayout = (LinearLayout) activity.getLayoutInflater().inflate(R.layout.dialog_numberpicker, null);
+        speedArea = (NumberPicker) dateTimeLayout.findViewById(R.id.numberPicker);
+        initAreaPickerForSpeed(speedArea);
+        ad = new AlertDialog.Builder(activity)
+                .setTitle("设置速度")
+                .setView(dateTimeLayout)
+                .setPositiveButton("设置", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int whichButton) {
+                        if(onAreaCallback != null){
+                            onAreaCallback.OnSettingSpeed(speedArea_value);
+                        }
+                    }
+                })
+                .setNegativeButton("取消", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int whichButton) {
+                        dialog.dismiss();
+                    }
+                }).show();
+
+        return ad;
+    }
+
 
 
     class areaValueChargeListener implements NumberPicker.OnValueChangeListener {
@@ -96,21 +171,21 @@ public class AreaPickerDLUtil {
         }
     }
 
+
+    class speedValueChargeListener implements NumberPicker.OnValueChangeListener {
+        @Override
+        public void onValueChange(NumberPicker picker, int oldVal, int newVal) {
+            switch (picker.getId()){
+                case R.id.numberPicker:
+                    speedArea_value = newVal;
+                    break;
+            }
+        }
+    }
+
     public interface SettingsAreaCallback{
         void onCallback();
     }
-
-
-    public int getAreaStart_value(){
-        return areaStart_value;
-    }
-
-    public  int getAreaEnd_value(){
-        return areaEnd_value;
-    }
-
-
-
 
     private void handlerRanges(NumberPicker startArea,NumberPicker endArea){
         if(areaSize == 1){
